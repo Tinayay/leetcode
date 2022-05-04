@@ -1,0 +1,10 @@
+with sorted_log as (
+select player_id,
+	event_date,
+	lead(event_date) over (partition by play_id order by event_date) as lag_date
+	rank() over (partition by play_id order by event_date ) as rank_date
+from Activity
+) 
+select round(sum(case when event_date + 1 = lead_date then 1 else 0 end)/count(player_id),2) as fraction
+from sorted_log
+where rank_date = 1 
