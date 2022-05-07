@@ -1,0 +1,10 @@
+with info as (
+select date, 
+	people,
+	lead(people, 1) over (order by date) as people_1,
+	lead(people, 2) over (order by date) as people_2
+from stadium
+)
+select date
+from info
+where people >= 100 and people_1 >= 100 and people_2 >= 100
