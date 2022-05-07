@@ -1,0 +1,7 @@
+with distances as (
+select sqrt(power((p1.x - p2.x),2)+power((p1.y-p2.y),2)) dist
+from point_2d p1 join point_2d p2
+	on p1.x <> p2.x or p1.y <> p2.y
+)
+select round(min(dist),2)
+from distances
