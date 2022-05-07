@@ -1,0 +1,15 @@
+select 
+    a.name 
+from 
+    candidate a 
+inner join (
+    select 
+        candidateid, count(*) no_of_votes 
+    from 
+        vote 
+    group by 
+        candidateid 
+    order by 
+        no_of_votes desc
+    limit 1) b
+on a.id = b.candidateid
