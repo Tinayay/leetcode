@@ -1,0 +1,8 @@
+with ranks as (
+select player_id, device_id,
+	row_number() OVER (partition by player_id order by event_date asc) as num
+from Activity
+) 
+select player_id, device_id 
+from ranks
+where num = 1
