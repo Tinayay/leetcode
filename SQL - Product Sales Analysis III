@@ -1,0 +1,10 @@
+select distinct p.product_id, product_name 
+from Product p
+inner join Sales s
+	on p.prodcut_id = s.product_id
+where sales_date between '2019-01-01' and '2019-03-31'
+and product_id not in (
+	select product_id 
+	from Sales
+	where sales_date < '2019-01-01' or sales_date > '2019-03-31'
+	)
