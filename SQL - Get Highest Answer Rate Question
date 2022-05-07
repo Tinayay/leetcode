@@ -1,0 +1,12 @@
+with counts as (
+select question_id,
+    sum(case when action = "show" then 1 else 0 end) show_cnt,
+    sum(case when action = "answer" then 1 else 0 end) ans_cnt
+from survey_log
+group by question_id
+)
+select question_id
+from counts
+where show_cnt > 0
+order by ans_cnt/show_cnt desc
+limit 1
