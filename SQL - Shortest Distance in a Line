@@ -1,0 +1,7 @@
+with ordered as (
+select x, 
+	lag(x) OVER (order by x) lag_x
+from point
+)
+select min(x - lag_x)
+from ordered
