@@ -1,0 +1,8 @@
+select price_by_seller as (
+	select seller_id, 
+		sum(price) as total_price
+	from Sales
+),
+select seller_id
+from price_by_seller
+where total_price = (select max(total_price) from price_by_seller)
